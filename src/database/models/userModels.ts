@@ -2,7 +2,7 @@ import {Table,Column,Model,DataType, PrimaryKey} from 'sequelize-typescript'
 
 @Table({
     tableName:'users',
-    modelName:'user',
+    modelName:'User',
     timestamps:true
 })
 
@@ -17,7 +17,7 @@ class User extends Model{       //this is for hide id
     @Column({
         type:DataType.STRING,
     })
-    declare username : string
+    declare userName : string
 
     @Column({
         type:DataType.STRING,
