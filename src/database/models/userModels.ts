@@ -32,9 +32,15 @@ class User extends Model{       //this is for hide id
     declare email : string
 
     @Column({
-        type:DataType.ENUM('teacher','student','institute','super-admin')
+        type:DataType.ENUM('teacher','student','institute','super-admin'),
+        defaultValue:'student'
     })
     declare role : string
+
+    @Column({
+        type : DataType.STRING
+    })
+    declare currentInstituteNum : string
 
 }
 export default User

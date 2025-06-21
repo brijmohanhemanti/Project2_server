@@ -19,7 +19,7 @@ class middelware{
         jwt.verify(token,"thisisSecreate",async (error,result:any)=>{        
             if(error){           //token mistake xa bhane
                 res.status(403).json({
-                    massage:"token Invalid!!"
+                    massage:"token Invalid!!" 
                 })
             }else{         //token right bhayo bahne tyo id ko manxe xa xiin herne
                 const userData = await User.findByPk(result.id)
