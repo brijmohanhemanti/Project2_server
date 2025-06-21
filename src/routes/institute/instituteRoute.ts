@@ -1,10 +1,10 @@
 import express from 'express'
-import instituteController from '../../controller/institute/instituteController'
 import middelware from '../../middleWare/middleWare'
+import { createInstitute, createStudentTable, createTeacherTable, createCorseTable } from '../../controller/institute/instituteController'
 
 const router =express.Router()
 
-router.route("/").post(middelware.isLoggedIn,instituteController.createInstitute)
+router.route("/").post(middelware.isLoggedIn,createInstitute,createTeacherTable,createStudentTable,createCorseTable)
 
 
 
