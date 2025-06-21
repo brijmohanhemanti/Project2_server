@@ -1,10 +1,11 @@
 import express from 'express'
 import AuthController from '../../../controller/globals/auth/authControllers'
+import asyncErrorHandle from '../../../services/asyncErrorHandle'
 
 const router =express.Router()
 
-router.route("/register").post(AuthController.registerUser)
-router.route("/login").post(AuthController.loginUser)
+router.route("/register").post(asyncErrorHandle(AuthController.registerUser))
+router.route("/login").post(asyncErrorHandle(AuthController.loginUser))
 
 
 

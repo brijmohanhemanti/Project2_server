@@ -90,7 +90,8 @@ const createTeacherTable= async(req:IExtendedRequest,res:Response,next:NextFunct
     }
 }
 const createStudentTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
-    const instituteNumber= req.instituteNumber
+   try {
+     const instituteNumber= req.instituteNumber
     await sequelize.query(`CREATE TABLE IF NOT EXISTS student_${instituteNumber}(
              id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
             studentName VARCHAR(255) NOT NULL, 
@@ -102,6 +103,10 @@ const createStudentTable= async(req:IExtendedRequest,res:Response,next:NextFunct
             updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
             )`)
     next()
+   } catch (error) {
+    console.log(error)
+    
+   }
 }
 const createCorseTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
     const instituteNumber= req.instituteNumber

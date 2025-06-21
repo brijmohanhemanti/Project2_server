@@ -7,7 +7,8 @@ import { IExtendedRequest } from "./type";
 
 class middelware{
     static async isLoggedIn (req:IExtendedRequest,res:Response,next:NextFunction){  //cheack login or not & token accepct & Verifry
-        const token = req.headers.authorization
+        try {
+            const token = req.headers.authorization
         if(!token){             // yadi token xain vane
             res.status(401).json({
                 massage:"please provide token!!"
@@ -35,6 +36,9 @@ class middelware{
 
             }
         })
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
