@@ -24,7 +24,7 @@ class middelware{
                 })
             }else{         //token right bhayo bahne tyo id ko manxe xa xiin herne
                 const userData = await User.findByPk(result.id,{
-                    attributes :[`id`,`currentInstituteNum`]
+                    attributes :[`id`,`currentInstituteNumber`]
                 })         //YAHA LIMIT LAAGAUNA SAKINXA
             
                 if(!userData){

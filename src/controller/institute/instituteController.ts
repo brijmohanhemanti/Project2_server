@@ -119,8 +119,7 @@ const createCorseTable= async(req:IExtendedRequest,res:Response,next:NextFunctio
         courseDuration VARCHAR(100) NOT NULL, 
         courseLevel ENUM('beginner','intermediate','advance') NOT NULL, 
         courseThumbnail VARCHAR(200),
-        courseDescription TEXT, 
-        categoryId VARCHAR(36) NOT NULL REFERENCES category_${instituteNumber} (id), 
+        courseDescription TEXT,  
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
         updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )`)
