@@ -9,21 +9,23 @@ class middelware{
     static async isLoggedIn (req:IExtendedRequest,res:Response,next:NextFunction){  //cheack login or not & token accepct & Verifry
         try {
             const token = req.headers.authorization
-        if(!token){             // yadi token xain vane
+            if(!token){             // yadi token xain vane
             res.status(401).json({
                 massage:"please provide token!!"
             })
             return
-        }
+            }
 
-        //yadi token xa bhane
-        jwt.verify(token,"thisisSecreate",async (error,result:any)=>{        
+            //yadi token xa bhane
+            jwt.verify(token,"thisisSecreate",async (error,result:any)=>{        
             if(error){           //token mistake xa bhane
                 res.status(403).json({
                     massage:"token Invalid!!" 
                 })
             }else{         //token right bhayo bahne tyo id ko manxe xa xiin herne
-                const userData = await User.findByPk(result.id)
+                const userData = await User.findByPk(result.id,{
+                    attributes :[`id`,`currentInstituteNum`]
+                })         //YAHA LIMIT LAAGAUNA SAKINXA
             
                 if(!userData){
                     res.status(403).json({

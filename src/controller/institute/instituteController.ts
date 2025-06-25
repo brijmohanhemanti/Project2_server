@@ -5,7 +5,7 @@ import { IExtendedRequest } from "../../middleWare/type";
 import User from "../../database/models/userModels";
 
 
-const createInstitute= async (req:IExtendedRequest,res:Response,    next:NextFunction)=>{
+const createInstitute= async (req:IExtendedRequest,res:Response,next:NextFunction)=>{
     try {
         const{instituteName,instituteEmail,instituteContract,instituteAddress}=req.body
         const instituteVatNo=req.body.instituteVatNo || null
@@ -60,7 +60,9 @@ const createInstitute= async (req:IExtendedRequest,res:Response,    next:NextFun
                 }
             })
         }
-        req.instituteNumber = instituteNumber
+        if(req.user){
+              req.user.currentInstituteNumber = instituteNumber  
+          }
         next()
 
         } catch (error) {
@@ -72,7 +74,7 @@ const createInstitute= async (req:IExtendedRequest,res:Response,    next:NextFun
 
 const createTeacherTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
     try {
-        const instituteNumber= req.instituteNumber
+        const instituteNumber= req.user?.currentInstituteNumber
         await sequelize.query(`CREATE TABLE IF NOT EXISTS teacher_${instituteNumber}(
                id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()), 
               teacherName VARCHAR(255) NOT NULL, 
@@ -91,7 +93,7 @@ const createTeacherTable= async(req:IExtendedRequest,res:Response,next:NextFunct
 }
 const createStudentTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
    try {
-     const instituteNumber= req.instituteNumber
+     const instituteNumber= req.user?.currentInstituteNumber
     await sequelize.query(`CREATE TABLE IF NOT EXISTS student_${instituteNumber}(
              id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
             studentName VARCHAR(255) NOT NULL, 
@@ -109,7 +111,7 @@ const createStudentTable= async(req:IExtendedRequest,res:Response,next:NextFunct
    }
 }
 const createCorseTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
-    const instituteNumber= req.instituteNumber
+    const instituteNumber= req.user?.currentInstituteNumber
     await sequelize.query(`CREATE TABLE IF NOT EXISTS course_${instituteNumber}(
         id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
         courseName VARCHAR(255) NOT NULL UNIQUE, 
