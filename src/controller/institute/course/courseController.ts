@@ -14,7 +14,7 @@ const createCourse= async (req:IExtendedRequest,res:Response)=>{
     }
     const courseThumbnail = null
 
-    const returnData = await sequelize.query(`INSERT INTO course_${instituteNumber}(coursePrice,courseName,courseDescription,courseDuration,courseLevel,courseThumbnail) VALUES(?,?,?,?,?,?)`,{
+    await sequelize.query(`INSERT INTO course_${instituteNumber}(coursePrice,courseName,courseDescription,courseDuration,courseLevel,courseThumbnail) VALUES(?,?,?,?,?,?)`,{
         type : QueryTypes.INSERT,
         replacements : [coursePrice, courseName,courseDescription,courseDuration,courseLevel,courseThumbnail]
     })
