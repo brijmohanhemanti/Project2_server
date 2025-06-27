@@ -4,7 +4,8 @@ import sequelize from "../../../database/connection";
 
 
 const getAllStudents = async ( req:IExtendedRequest,res:Response)=>{
-    const instituteNumber=req.user?.currentInstituteNumber
+    // const instituteNumber=req.currentInstituteNum
+    const instituteNumber = req.user?.currentInstituteNum
     const students = await sequelize.query(`SELECT * FROM student_${instituteNumber}`)
     res.status(200).json({
         messgae : "student fetched", 

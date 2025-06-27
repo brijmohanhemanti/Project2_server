@@ -40,7 +40,7 @@ class User extends Model{       //this is for hide id
     @Column({
         type : DataType.STRING
     })
-    declare currentInstituteNumber : string
+    declare currentInstituteNum : string
 
 }
 export default User

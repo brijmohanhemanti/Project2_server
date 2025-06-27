@@ -51,17 +51,17 @@ const createInstitute= async (req:IExtendedRequest,res:Response,next:NextFunctio
                 replacements:[req.user.id, instituteNumber]
             })
 
-            await User.update({  //yo chaii instittue num liyeko ho basako ho dta ma
+            await User.update({
                 currentInstituteNum : instituteNumber,
                 role : "institute"
-                },{
-                where:{
-                id : req.user.id
-                }
+            },{
+                where :{ id : req.user.id}
             })
+ 
+            
         }
         if(req.user){
-              req.user.currentInstituteNumber = instituteNumber  
+              req.user.currentInstituteNum = instituteNumber  
           }
         next()
 
@@ -74,7 +74,8 @@ const createInstitute= async (req:IExtendedRequest,res:Response,next:NextFunctio
 
 const createTeacherTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
     try {
-        const instituteNumber= req.user?.currentInstituteNumber
+        // const instituteNumber= req.currentInstituteNum
+        const instituteNumber = req.user?.currentInstituteNum
         await sequelize.query(`CREATE TABLE IF NOT EXISTS teacher_${instituteNumber}(
                id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()), 
               teacherName VARCHAR(255) NOT NULL, 
@@ -93,7 +94,8 @@ const createTeacherTable= async(req:IExtendedRequest,res:Response,next:NextFunct
 }
 const createStudentTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
    try {
-     const instituteNumber= req.user?.currentInstituteNumber
+    //  const instituteNumber= req.currentInstituteNum
+     const instituteNumber = req.user?.currentInstituteNum
     await sequelize.query(`CREATE TABLE IF NOT EXISTS student_${instituteNumber}(
              id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
             studentName VARCHAR(255) NOT NULL, 
@@ -111,7 +113,8 @@ const createStudentTable= async(req:IExtendedRequest,res:Response,next:NextFunct
    }
 }
 const createCorseTable= async(req:IExtendedRequest,res:Response,next:NextFunction)=>{
-    const instituteNumber= req.user?.currentInstituteNumber
+    // const instituteNumber= req.currentInstituteNum
+    const instituteNumber = req.user?.currentInstituteNum
     await sequelize.query(`CREATE TABLE IF NOT EXISTS course_${instituteNumber}(
         id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
         courseName VARCHAR(255) NOT NULL UNIQUE, 

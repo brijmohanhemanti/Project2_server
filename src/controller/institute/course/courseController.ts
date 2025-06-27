@@ -5,7 +5,9 @@ import { QueryTypes } from "sequelize";
 
 
 const createCourse= async (req:IExtendedRequest,res:Response)=>{
-    const instituteNumber = req.user?.currentInstituteNumber
+    // const instituteNumber = req.currentInstituteNum
+    const instituteNumber = req.user?.currentInstituteNum
+    console.log(req.user)
     const {coursePrice, courseName,courseDescription, courseDuration, courseLevel } = req.body 
     if(!coursePrice || !courseName || !courseDescription || !courseDuration || !courseLevel){
     return res.status(400).json({
@@ -27,7 +29,8 @@ const createCourse= async (req:IExtendedRequest,res:Response)=>{
 }
 
 const deleteCourse = async(req:IExtendedRequest,res:Response)=>{
-    const instituteNumber = req.user?.currentInstituteNumber 
+    // const instituteNumber = req.currentInstituteNum
+    const instituteNumber = req.user?.currentInstituteNum
     const courseId = req.params.id 
     // first check if course exists or not , if exists --> delete else not delete 
     const courseData = await sequelize.query(`SELECT * FROM course_${instituteNumber} WHERE id=?`,{
@@ -52,7 +55,8 @@ const deleteCourse = async(req:IExtendedRequest,res:Response)=>{
 
 
 const getAllCourse = async (req:IExtendedRequest,res:Response)=>{
-    const instituteNumber = req.user?.currentInstituteNumber; 
+    // const instituteNumber = req.currentInstituteNum
+    const instituteNumber = req.user?.currentInstituteNum
 
     const courses = await sequelize.query(`SELECT * FROM course_${instituteNumber}`,{
         type : QueryTypes.SELECT
@@ -65,7 +69,8 @@ const getAllCourse = async (req:IExtendedRequest,res:Response)=>{
 }
 
 const getSingleCourse = async(req:IExtendedRequest,res:Response)=>{
-    const instituteNumber = req.user?.currentInstituteNumber; 
+    // const instituteNumber = req.currentInstituteNum
+    const instituteNumber = req.user?.currentInstituteNum
     const courseId = req.params.id
     const course = await sequelize.query(`SELECT * FROM course_${instituteNumber} WHERE id = ?`,{
         replacements : [courseId], 

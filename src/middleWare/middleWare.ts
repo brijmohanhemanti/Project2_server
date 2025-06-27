@@ -5,8 +5,7 @@ import User from "../database/models/userModels";
 import { IExtendedRequest } from "./type";
 
 
-class middelware{
-    static async isLoggedIn (req:IExtendedRequest,res:Response,next:NextFunction){  //cheack login or not & token accepct & Verifry
+const isLoggedIn = async (req:IExtendedRequest,res:Response,next:NextFunction)=>{  //cheack login or not & token accepct & Verifry
         try {
             const token = req.headers.authorization
             if(!token){             // yadi token xain vane
@@ -23,9 +22,7 @@ class middelware{
                     massage:"token Invalid!!" 
                 })
             }else{         //token right bhayo bahne tyo id ko manxe xa xiin herne
-                const userData = await User.findByPk(result.id,{
-                    attributes :[`id`,`currentInstituteNumber`]
-                })         //YAHA LIMIT LAAGAUNA SAKINXA
+                const userData = await User.findByPk(result.id)         //YAHA LIMIT LAAGAUNA SAKINXA
             
                 if(!userData){
                     res.status(403).json({
@@ -42,6 +39,5 @@ class middelware{
             console.log(error)
         }
     }
-}
 
-export default middelware
+export default isLoggedIn

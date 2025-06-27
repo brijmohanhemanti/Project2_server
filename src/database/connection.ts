@@ -23,7 +23,7 @@ sequelize.authenticate()
 })
 
 //migrate garnu paryo column lai
-sequelize.sync({alter:false})
+sequelize.sync({alter : false})
 .then(()=>{
     console.log("migrated Sucessfully!!")
 })
