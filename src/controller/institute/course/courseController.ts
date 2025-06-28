@@ -9,12 +9,13 @@ const createCourse= async (req:IExtendedRequest,res:Response)=>{
     const instituteNumber = req.user?.currentInstituteNum
     console.log(req.user)
     const {coursePrice, courseName,courseDescription, courseDuration, courseLevel } = req.body 
-    if(!coursePrice || !courseName || !courseDescription || !courseDuration || !courseLevel){
+    const courseThumbnail = req.file ? req.file.path : null
+    console.log(req.file)
+    if(!coursePrice || !courseName || !courseDescription || !courseDuration || !courseLevel ){
     return res.status(400).json({
         messsage : "Please provide coursePrice, courseName, courseDescription, courseDuration, courseLevel,categoryId"
     })
     }
-    const courseThumbnail = null
 
     await sequelize.query(`INSERT INTO course_${instituteNumber}(coursePrice,courseName,courseDescription,courseDuration,courseLevel,courseThumbnail) VALUES(?,?,?,?,?,?)`,{
         type : QueryTypes.INSERT,
@@ -23,7 +24,8 @@ const createCourse= async (req:IExtendedRequest,res:Response)=>{
 
 
     res.status(200).json({
-    message : 'course created successfully'
+    message : 'course created successfully',
+    instituteNumber
     })
 
 }

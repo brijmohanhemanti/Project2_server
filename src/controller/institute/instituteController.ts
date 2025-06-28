@@ -45,7 +45,7 @@ const createInstitute= async (req:IExtendedRequest,res:Response,next:NextFunctio
             instituteNumber INT UNIQUE
             )`)
             
-            console.log(req.user)
+            
             if(req.user){       //yaha haleko ho table ma 
             await sequelize.query(`INSERT INTO user_institute(userId,instituteNumber) VALUES(?,?)`,{
                 replacements:[req.user.id, instituteNumber]
@@ -129,8 +129,9 @@ const createCorseTable= async(req:IExtendedRequest,res:Response,next:NextFunctio
 
         res.status(200).json({
             message : "Institute created sucessfully!!!", 
-            instituteNumber, 
+            instituteNumber
         })
+        console.log(req.user)
 }
 
 

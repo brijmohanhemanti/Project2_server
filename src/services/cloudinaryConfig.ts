@@ -1,5 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
+import {config} from 'dotenv'
+config();
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINAR_CLOUD_NAME,   //yo sab clodinay ley dinxa 
@@ -9,9 +11,10 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    params : async(req,file)=>{
-        folder:"full strack_saas"
-    }
+    params: async (req, file) => ({
+
+        folder: "full_stack_saas"
+    })
 })
 
 
